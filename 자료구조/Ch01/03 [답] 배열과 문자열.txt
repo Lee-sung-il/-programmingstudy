@@ -1,0 +1,77 @@
+---------------------------------------------------
+문제1
+---------------------------------------------------
+영단어를 입력받아서 입력 받은 영단어의 길이를 출력하는 프로그램 작성
+ex) Array 입력시 5 출력
+
+#include <stdio.h>
+
+void main()
+{
+   char voca[100];
+   int len = 0;
+
+   printf("영단어 입력: ");
+   scanf_s("%s", voca,sizeof(voca));
+
+   while (voca[len] != 0)
+      len++;
+   printf("입력한 영단어 길이 : %d", len);
+}
+---------------------------------------------------
+문제2
+---------------------------------------------------
+영단어를 입력받아서 역순으로 char에 대입하여 출력
+조건. Null문자의 위치가 변경되면 안됨
+#include <stdio.h>
+
+int main()
+{
+   char voca[100];
+   int len = 0, i;
+   char temp;
+
+   printf("영단어 입력 : ");
+   scanf_s("%s", voca, sizeof(voca));
+
+   while (voca[len] != '\0')
+      len++;
+
+   for (i = 0; i < len / 2; i++)
+   {
+      temp = voca[i];		// 앞의 문자 임시로 저장
+      voca[i] = voca[(len - i) - 1];	// 뒤의 문자를 앞으로
+      voca[(len - i) - 1] = temp;	// 앞의 문자를 뒤로 
+   }
+  printf("뒤집힌 영단어:%s\n", voca);
+  
+   return 0;
+}
+
+
+---------------------------------------------------
+문제3
+---------------------------------------------------
+프로그램 사용자로부터 영단어를 입력받아 
+그중 아스키코드값이 가장 큰값을 화면에 출력
+
+#include <stdio.h>
+
+void main()
+{
+	char voca[100];
+	int len=0,i;
+	char max=0;
+
+	printf("영단어 입력: ");
+	scanf_s("%s",voca,sizeof(voca));
+	
+	while(voca[len] !='\0')
+		len++;
+
+	for(i=0;i<len;i++)
+		if(max<voca[i])
+			max=voca[i];
+
+	printf("가장 큰 아스키 코드 값의 문자 : %c \n",max);
+}
