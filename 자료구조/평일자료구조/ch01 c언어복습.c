@@ -156,5 +156,9 @@ Pointer : 가르키는 도구
 * : 포인터 연산자
 & : 참조연산자
 
-int num = 3;
+int num = 3;  //3값을 int 공간 num에 대입
+int *ptr = &num; // num의 메모리주소값을 int크기를 가리키는 ptr포인터변수에 초기화
+*ptr = 10; // 10값을 ptr포인터가 가리키는 공간에 대입
+int num2 = *ptr; //ptr이 가리키는 곳의 값을 num2변수에 초기화
+printf("*ptr = %d\n",*ptr); //ptr이 가리키는 곳의 값을 10진정수 서식에 맞게 출력
 */
