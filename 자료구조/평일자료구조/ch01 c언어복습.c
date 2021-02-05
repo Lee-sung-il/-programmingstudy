@@ -302,18 +302,129 @@ printf("*ptr = %d\n",*ptr); //ptr이 가리키는 곳의 값을 10진정수 서식에 맞게 출력
 // Call-by-address      :함수를 실행할때 전달하는 인자가 메모리주소값인 경우
 // Call-by-Reference(C++) : 함수를 실행할때 전달하는 인자가 참조 값인 경우
 
+//#include <stdio.h>
+//void Swap(int x, int y) {
+//	int tmp = x;
+//	x = y;
+//	y = tmp;
+//
+//}
+//int main() {
+//	int a = 10, b = 20;
+//	printf("Swap 전 a = %d,	b = %d\n", a, b);
+//	Swap(&a, &b); // Call-by-value
+//	printf("Swap 후 a = %d,	b = %d\n", a, b);
+//	return 0;
+//}
+
+// Call-by-address  
+
+//#include <stdio.h>
+//void Swap(int *x, int *y) {
+//	int tmp = *x;
+//	*x = *y;
+//	*y = tmp;
+//
+//}
+//int main() {
+//	int a = 10, b = 20;
+//	printf("Swap 전 a = %d,	b = %d\n", a, b);
+//	Swap(&a, &b); // Call-by-value
+//	printf("Swap 후 a = %d,	b = %d\n", a, b);
+//	return 0;
+//}
+
+
+//4) 포인터와 문자열
+
+//#include <stdio.h>
+//int main() {
+//	char arr[20] = "hello World"; //배열공간을 따로 만들어서 문자열 상수값을 저장
+//	char *ptr1 = "hello World";
+//	char *ptr2 = "hello World";
+//
+//	printf("arr배열의 주소 : %x\n", arr); //배열의 이름 배열의 시작주소를 담고있는 포인터상수이다.
+//	printf("hello World의 주소 : %x\n", "hello World");
+//	printf("ptr1안의 주소 : %x\n", ptr1);//"hello World"라는 문자열 상수를 가리킴(ptr1==ptr2)
+//	printf("ptr2안의 주소 : %x\n", ptr2);//"hello World"라는 문자열 상수를 가리킴(ptr1==ptr2)
+//	
+//	return 0;
+//}
+
+
+//----------------------------
+// 4 동적할당
+//----------------------------
+
+//코드 영역	: 컴파일된 데이터 저장
+//데이터 영역 : 공유메모리영역(전역변수,static변수)			 프로그램 시작시 생성 - > 프로그램 종료시 소멸
+//스택영역	: 중괄호({}) 내에서 선언되지는 변수(지역변수)	 중괄호에서 생성 -> 중괄호 벗어나면 소멸
+//힙영역		: 동적할당 영역			malloc 함수 공간생성 -> free 공간소멸
+
+
+//동적할당: 필요한 만큼 공간을 할당 받아 저장하기 위한 문법
+//동적할당은 Heap 영역에 형성이 된다.
+//동적할당함수 : malloc(★), realoc, calloc
+//동적할당 해제 함수 : free;
+
 #include <stdio.h>
-void Swap(int x, int y) {
-	int tmp = x;
-	x = y;
-	y = tmp;
-}
+#include <stdlib.h>
 int main() {
-	int a = 10, b = 20;
-	printf("Swap 전 a = %d,	b = %d\n", a, b);
-	Swap(a, b); // Call-by-value
-	printf("Swap 후 a = %d,	b = %d\n", a, b);
+
+	/*int* pi;
+	pi = (int*)malloc(sizeof(int));
+	if (pi == NULL)
+	{
+		printf("동적할당 실패!");
+		exit(1);
+	}
+	*pi = 10;
+	printf("pi = %d\n", *pi);
+	
+	free(pi);*/
+
+	// 동적할당 배열
+	int* arr;
+	arr = (int*)malloc(sizeof(int) * 7);
+	if (arr == NULL)
+	{
+		printf("동적할당 실패!");
+		exit(1);
+	}
+	//동적할당 배열에 값넣기
+	for (int i = 0; i < 7; i++)
+	{
+		arr[i] = i + 10; //포인터에 배열의 시작주소를 담으면
+						//포인터를 배열처럼 사용할수 있다!!
+	}
+	//동적할당 배열의 값 출력
+	for (int i = 0; i < 7; i++)
+	{
+		printf("%d ", arr[i]);
+	}
 	return 0;
 }
 
-//4) 포인터와 문자열
+// int 형배열 10칸 배열을 동적할당해서
+// 각각의 요소에 키보드로 입력한 정수값을 저장하세요
+//그리고 각저장된 수의 합과 최소값/최대값을 구해보세요
+/*
+	[출력 예]
+	0 idx에 정수 값 : 10
+	1 idx에 정수 값 : 5
+	2 idx에 정수 값 : 4
+	3 idx에 정수 값 : 22
+	4 idx에 정수 값 : 77
+	5 idx에 정수 값 : 123
+	6 idx에 정수 값 : 45
+	7 idx에 정수 값 : 23
+	8 idx에 정수 값 : 89
+	9 idx에 정수 값 : 122
+
+	총합 : ? 최대값 : ? 최소값 : ?
+
+*/
+
+
+
+
