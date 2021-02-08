@@ -367,43 +367,48 @@ printf("*ptr = %d\n",*ptr); //ptr이 가리키는 곳의 값을 10진정수 서식에 맞게 출력
 //동적할당함수 : malloc(★), realoc, calloc
 //동적할당 해제 함수 : free;
 
-#include <stdio.h>
-#include <stdlib.h>
-int main() {
 
-	/*int* pi;
-	pi = (int*)malloc(sizeof(int));
-	if (pi == NULL)
-	{
-		printf("동적할당 실패!");
-		exit(1);
-	}
-	*pi = 10;
-	printf("pi = %d\n", *pi);
-	
-	free(pi);*/
+// 1) 동적할당
 
-	// 동적할당 배열
-	int* arr;
-	arr = (int*)malloc(sizeof(int) * 7);
-	if (arr == NULL)
-	{
-		printf("동적할당 실패!");
-		exit(1);
-	}
-	//동적할당 배열에 값넣기
-	for (int i = 0; i < 7; i++)
-	{
-		arr[i] = i + 10; //포인터에 배열의 시작주소를 담으면
-						//포인터를 배열처럼 사용할수 있다!!
-	}
-	//동적할당 배열의 값 출력
-	for (int i = 0; i < 7; i++)
-	{
-		printf("%d ", arr[i]);
-	}
-	return 0;
-}
+//#include <stdio.h>
+//#include <stdlib.h>
+//int main() {
+//
+//	/*int* pi;
+//	pi = (int*)malloc(sizeof(int));
+//	if (pi == NULL)
+//	{
+//		printf("동적할당 실패!");
+//		exit(1);
+//	}
+//	*pi = 10;
+//	printf("pi = %d\n", *pi);
+//	
+//	free(pi);*/
+//
+//	// 동적할당 배열
+//	int* arr;
+//	arr = (int*)malloc(sizeof(int) * 7);
+//	if (arr == NULL)
+//	{
+//		printf("동적할당 실패!");
+//		exit(1);
+//	}
+//	//동적할당 배열에 값넣기
+//	for (int i = 0; i < 7; i++)
+//	{
+//		arr[i] = i + 10; //포인터에 배열의 시작주소를 담으면
+//						//포인터를 배열처럼 사용할수 있다!!
+//	}
+//	//동적할당 배열의 값 출력
+//	for (int i = 0; i < 7; i++)
+//	{
+//		printf("%d ", arr[i]);
+//	}
+//	return 0;
+//}
+
+//문제
 
 // int 형배열 10칸 배열을 동적할당해서
 // 각각의 요소에 키보드로 입력한 정수값을 저장하세요
@@ -422,8 +427,243 @@ int main() {
 	9 idx에 정수 값 : 122
 
 	총합 : ? 최대값 : ? 최소값 : ?
-
 */
+
+//답
+
+//#include <stdio.h>
+//#include <stdlib.h>
+//
+//int main(void) {
+//	
+//	int sum = 0; // 총합 누적용
+//	int max = 0;//최대값
+//	int min = 0;//최소값
+//	int* arr = (int*)malloc(sizeof(int) * 10); // 동적할당
+//	if (arr == NULL)
+//	{
+//		printf("동적할당 실패!");
+//		exit(1);
+//	}
+//
+//	for (int i = 0; i < 10; i++)
+//	{
+//		printf("%d Idx에 요소에 값 입력 : ",i);
+//		scanf_s("%d", &arr[i]);
+//		sum += arr[i];
+//	}
+//
+//	//최소값/최대값
+//	max = arr[0];
+//	min = arr[0];
+//	for (int i = 1; i < 10 ; i++)
+//	{
+//		if (max < arr[i]) { //각요소와  max값비교후 큰값 저장
+//			max = arr[i];
+//		}
+//		if (min > arr[i]) { //각요소와 min값 비교후 작은값 저장
+//			min = arr[i];
+//		}
+//
+//	}
+//
+//	//저장된 값 출력
+//	printf("총합 : %d 최소값 : %d 최대값 : %d\n", sum, min, max);
+//	return 0;
+//}
+
+
+//2) 동적할당 공간확인(_msize())
+
+#include <stdio.h>
+#include <stdlib.h>
+int main()
+{
+
+	int * ptr1 = (int *)malloc(123);
+	int len1 = sizeof(ptr1);	//포인터변수의 크기를 잽니다
+	int len2 = _msize(ptr1);	//동적할당된 공간의 크기를 잽니다
+	printf("sizeof함수를 이용한 size확인 : %d\n", len1);
+	printf("_msize함수를 이용한 size확인 : %d\n", len2);
+
+	return 0;
+}
+
+
+// 3) 배열의 이름
+//배열의 이름은 배열의 시작주소를 담고있는 포인터 상수이다
+
+//#include <stdio.h>
+//int main() {
+//	int arr[3] = { 11,22,33 };
+//	printf("첫번째 요소값 : %d", *arr); //배열의 시작위치의 값 %d로 출력
+//	printf("첫번째 요소값 : %d", (*arr+1));//배열의 시작위치에서 int *1크기정도 떨어진 곳의 값 %d로 출력
+//	printf("첫번째 요소값 : %d", (*arr+2));//배열의 시작위치에서 int *2크기정도 떨어진 곳의 값 %d로 출력
+//
+//	int num2 = 10;
+//	*arr = &num2;//arr은 포인터 상수, 다른 주소를 담을수 없다.
+//	return 0;
+//}
+
+/*
+-------------------------------------
+문자열 처리 함수
+--------------------------------------
+*/
+
+
+// 예제 1
+
+//#include<stdio.h>
+//#include <string.h>
+//
+//int main() {
+//
+//	char str1[20];
+//	char* ptr = "Hello World!";
+//	//------------------------------------------------------------
+//	//문자열 복사(strcpy_s(대상공간주소,대상공간크기,원본공간주소)
+//	//------------------------------------------------------------
+//	strcpy_s(str1, sizeof(str1), ptr);
+//	printf("%s\n", str1);
+//	//------------------------------------------------------------
+//	//문자열 길이(strlen(문자열이 저장된공간주소)
+//	//------------------------------------------------------------
+//	printf("str1의 배열의 총 길이 : %d\n", sizeof(str1));
+//	printf("str1 안의 문자열의 길이: %d\n", strlen(str1));
+//	//------------------------------------------------------------
+//	//공백문자를 포함하는 값 입력받기 fgets(저장할공간주소, 저장공간크기, stdin or FileStream)
+//	//------------------------------------------------------------
+//	char str2[20];
+//	char str3[30];
+//	printf("문자열 입력(scanf_s) : ");
+//	scanf_s("%s", &str2,sizeof(str2)); // 키보드로 문자열입력 받아 str2의 크기에 맞게 저장하겠다.
+//	rewind(stdin); // 버퍼공간 초기화
+//	printf("문자열 입력(fgets) : ");
+//	fgets(str3, sizeof(str3), stdin); // stdin(표쥰입력스트림,키보드)로 부터 문자열을 받아 str3에 저장하겠다.
+//	
+//									  //확인
+//	printf("str2 : %s, str3 : %s\n", str2, str3);
+//
+//	//fgets로 값받을 때 \n제거하기
+//
+//	//\n문자를 포함해서 값을 저장 -> \n 제거하는 작업 수반되어야한다.
+//
+//	// \n문자 입력 확인
+//	printf("%s", str3); // "%s"에 \n을 포함하지 않았는데 str3의 끝에 \n이 저장되어있기 때문에 자동개행됩니다.
+//	for (int i = 0; i < 20; i++)
+//	{
+//		printf("%d ", str3[i]);
+//	}
+//	printf("\n");
+//	//--------------------------
+//	//개행문자 제거
+//	//--------------------------
+//	int len = strlen(str3) - 1; // \n이 저장된 위치의 idx
+//	str3[len] = '\0';
+//	for (int i = 0; i < 20; i++)
+//	{
+//		printf("%d ", str3[i]);
+//	}
+//	printf("\n");
+//	//----------------------------
+//	//문자열 비교 strcmp(저장주소1, 저장주소2)
+//	//----------------------------
+//	if (strcmp(str1,str3) == 0) // 두문자열 같으면 0반환/ 다르면 0아닌값 반환
+//	{
+//		printf("두 문자열이 같습니다.");
+//	}
+//	else {
+//		printf("두 문자열이 다릅니다.");
+//	}
+//	return 0;
+//}
+
+
+
+/*
+-------------------------------------
+입력되는 데이터의 크기만큼 공간할당
+--------------------------------------
+*/
+
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include <string.h>
+//
+//int main() {
+//
+//	char buff[1024] = { 0 }; //입력된 문자열 임시보관 배열
+//	int len = 0;			//\n을 제거하기 위한 용도 idx 저장
+//	char* name;				// 이름이 저장될 동적공간 바인딘용 포인터 변수
+//	char* addr;				// 주소가 저장될 동적공간 바인딩용 포인터변수
+//
+//	printf("이름 : ");
+//	fgets(buff, sizeof(buff), stdin); //키보드로부터 입력된 문자열을  buff크기만큼 buff배열에 저장
+//	len = strlen(buff) - 1;				//buff안의 \n 의 위치 idx 를 len 저장
+//	buff[len] = '\0';					//len idx(\n의 위치)에 \0를 저장
+//
+//
+//	//입력된 이름크기만큼 동적할당
+//	name = (char*)malloc(sizeof(char) * (len + 1)); // len + 1의 1은 \0가 저장될 공간을 추가하는 작업
+//													//char를 배열요소 크기로 해서 len + 1 길이의 배열을 동적할다
+//												   //시작 주소를 name포인터변수에 저장
+//
+//
+//	// 동적할당 성공 여부 체크
+//	if (name == NULL)
+//	{
+//		printf("동적할당 실패");
+//		exit(1);
+//	}
+//
+//	//문자열 복사
+//	strcpy_s(name, _msize(name), buff);
+//
+//	printf("이름 : %s\n", name);
+//	printf("이름이 저장된 공간의 크기 : %d\n",_msize(name));
+//
+//
+//
+//	printf("주소 : ");
+//	fgets(buff, sizeof(buff), stdin);   //키보드로부터 입력된 문자열을  buff크기만큼 buff배열에 저장
+//	len = strlen(buff) - 1;				//buff안의 \n 의 위치 idx 를 len 저장
+//	buff[len] = '\0';					//len idx(\n의 위치)에 \0를 저장
+//
+//	//입력된 이름크기만큼 동적할당
+//	addr = (char*)malloc(sizeof(char) * (len + 1));  // len + 1의 1은 \0가 저장될 공간을 추가하는 작업
+//													 //char를 배열요소 크기로 해서 len + 1 길이의 배열을 동적할다
+//													 //시작 주소를 addr포인터변수에 저장
+//	// 동적할당 성공 여부 체크
+//	if (addr == NULL)
+//	{
+//		printf("동적할당 실패");
+//		exit(1);
+//	}
+//	//문자열 복사
+//	strcpy_s(addr, _msize(addr), buff);
+//
+//	printf("주소 : %s\n", addr);
+//	printf("주소가 저장된 공간의 크기 : %d\n", _msize(addr));
+//
+//	return 0;
+//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
