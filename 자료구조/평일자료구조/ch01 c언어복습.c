@@ -475,19 +475,19 @@ printf("*ptr = %d\n",*ptr); //ptr이 가리키는 곳의 값을 10진정수 서식에 맞게 출력
 
 //2) 동적할당 공간확인(_msize())
 
-#include <stdio.h>
-#include <stdlib.h>
-int main()
-{
-
-	int * ptr1 = (int *)malloc(123);
-	int len1 = sizeof(ptr1);	//포인터변수의 크기를 잽니다
-	int len2 = _msize(ptr1);	//동적할당된 공간의 크기를 잽니다
-	printf("sizeof함수를 이용한 size확인 : %d\n", len1);
-	printf("_msize함수를 이용한 size확인 : %d\n", len2);
-
-	return 0;
-}
+//#include <stdio.h>
+//#include <stdlib.h>
+//int main()
+//{
+//
+//	int * ptr1 = (int *)malloc(123);
+//	int len1 = sizeof(ptr1);	//포인터변수의 크기를 잽니다
+//	int len2 = _msize(ptr1);	//동적할당된 공간의 크기를 잽니다
+//	printf("sizeof함수를 이용한 size확인 : %d\n", len1);
+//	printf("_msize함수를 이용한 size확인 : %d\n", len2);
+//
+//	return 0;
+//}
 
 
 // 3) 배열의 이름
@@ -587,67 +587,67 @@ int main()
 --------------------------------------
 */
 
-//#include <stdio.h>
-//#include <stdlib.h>
-//#include <string.h>
-//
-//int main() {
-//
-//	char buff[1024] = { 0 }; //입력된 문자열 임시보관 배열
-//	int len = 0;			//\n을 제거하기 위한 용도 idx 저장
-//	char* name;				// 이름이 저장될 동적공간 바인딘용 포인터 변수
-//	char* addr;				// 주소가 저장될 동적공간 바인딩용 포인터변수
-//
-//	printf("이름 : ");
-//	fgets(buff, sizeof(buff), stdin); //키보드로부터 입력된 문자열을  buff크기만큼 buff배열에 저장
-//	len = strlen(buff) - 1;				//buff안의 \n 의 위치 idx 를 len 저장
-//	buff[len] = '\0';					//len idx(\n의 위치)에 \0를 저장
-//
-//
-//	//입력된 이름크기만큼 동적할당
-//	name = (char*)malloc(sizeof(char) * (len + 1)); // len + 1의 1은 \0가 저장될 공간을 추가하는 작업
-//													//char를 배열요소 크기로 해서 len + 1 길이의 배열을 동적할다
-//												   //시작 주소를 name포인터변수에 저장
-//
-//
-//	// 동적할당 성공 여부 체크
-//	if (name == NULL)
-//	{
-//		printf("동적할당 실패");
-//		exit(1);
-//	}
-//
-//	//문자열 복사
-//	strcpy_s(name, _msize(name), buff);
-//
-//	printf("이름 : %s\n", name);
-//	printf("이름이 저장된 공간의 크기 : %d\n",_msize(name));
-//
-//
-//
-//	printf("주소 : ");
-//	fgets(buff, sizeof(buff), stdin);   //키보드로부터 입력된 문자열을  buff크기만큼 buff배열에 저장
-//	len = strlen(buff) - 1;				//buff안의 \n 의 위치 idx 를 len 저장
-//	buff[len] = '\0';					//len idx(\n의 위치)에 \0를 저장
-//
-//	//입력된 이름크기만큼 동적할당
-//	addr = (char*)malloc(sizeof(char) * (len + 1));  // len + 1의 1은 \0가 저장될 공간을 추가하는 작업
-//													 //char를 배열요소 크기로 해서 len + 1 길이의 배열을 동적할다
-//													 //시작 주소를 addr포인터변수에 저장
-//	// 동적할당 성공 여부 체크
-//	if (addr == NULL)
-//	{
-//		printf("동적할당 실패");
-//		exit(1);
-//	}
-//	//문자열 복사
-//	strcpy_s(addr, _msize(addr), buff);
-//
-//	printf("주소 : %s\n", addr);
-//	printf("주소가 저장된 공간의 크기 : %d\n", _msize(addr));
-//
-//	return 0;
-//}
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main() {
+
+	char buff[1024] = { 0 }; //입력된 문자열 임시보관 배열
+	int len = 0;			//\n을 제거하기 위한 용도 idx 저장
+	char* name;				// 이름이 저장될 동적공간 바인딘용 포인터 변수
+	char* addr;				// 주소가 저장될 동적공간 바인딩용 포인터변수
+
+	printf("이름 : ");
+	fgets(buff, sizeof(buff), stdin); //키보드로부터 입력된 문자열을  buff크기만큼 buff배열에 저장
+	len = strlen(buff) - 1;				//buff안의 \n 의 위치 idx 를 len 저장
+	buff[len] = '\0';					//len idx(\n의 위치)에 \0를 저장
+
+
+	//입력된 이름크기만큼 동적할당
+	name = (char*)malloc(sizeof(char) * (len + 1)); // len + 1의 1은 \0가 저장될 공간을 추가하는 작업
+													//char를 배열요소 크기로 해서 len + 1 길이의 배열을 동적할다
+												   //시작 주소를 name포인터변수에 저장
+
+
+	// 동적할당 성공 여부 체크
+	if (name == NULL)
+	{
+		printf("동적할당 실패");
+		exit(1);
+	}
+
+	//문자열 복사
+	strcpy_s(name, _msize(name), buff);
+
+	printf("이름 : %s\n", name);
+	printf("이름이 저장된 공간의 크기 : %d\n",_msize(name));
+
+
+
+	printf("주소 : ");
+	fgets(buff, sizeof(buff), stdin);   //키보드로부터 입력된 문자열을  buff크기만큼 buff배열에 저장
+	len = strlen(buff) - 1;				//buff안의 \n 의 위치 idx 를 len 저장
+	buff[len] = '\0';					//len idx(\n의 위치)에 \0를 저장
+
+	//입력된 이름크기만큼 동적할당
+	addr = (char*)malloc(sizeof(char) * (len + 1));  // len + 1의 1은 \0가 저장될 공간을 추가하는 작업
+													 //char를 배열요소 크기로 해서 len + 1 길이의 배열을 동적할다
+													 //시작 주소를 addr포인터변수에 저장
+	// 동적할당 성공 여부 체크
+	if (addr == NULL)
+	{
+		printf("동적할당 실패");
+		exit(1);
+	}
+	//문자열 복사
+	strcpy_s(addr, _msize(addr), buff);
+
+	printf("주소 : %s\n", addr);
+	printf("주소가 저장된 공간의 크기 : %d\n", _msize(addr));
+
+	return 0;
+}
 
 
 
