@@ -624,27 +624,27 @@ int main() {
 	printf("이름이 저장된 공간의 크기 : %d\n",_msize(name));
 
 
-
+	// 주소 입력받기
 	printf("주소 : ");
-	fgets(buff, sizeof(buff), stdin);   //키보드로부터 입력된 문자열을  buff크기만큼 buff배열에 저장
-	len = strlen(buff) - 1;				//buff안의 \n 의 위치 idx 를 len 저장
-	buff[len] = '\0';					//len idx(\n의 위치)에 \0를 저장
+	fgets(buff, sizeof(buff), stdin);  
+	//개행제거 작업
+	len = strlen(buff) - 1;				//\n의 idx가 len에 저장
+	buff[len] = '\0';					//\n -> \0 교체
 
-	//입력된 이름크기만큼 동적할당
-	addr = (char*)malloc(sizeof(char) * (len + 1));  // len + 1의 1은 \0가 저장될 공간을 추가하는 작업
-													 //char를 배열요소 크기로 해서 len + 1 길이의 배열을 동적할다
-													 //시작 주소를 addr포인터변수에 저장
+	//저장된 문자열의 크기만큼 동적할당
+	addr = (char*)malloc(sizeof(char) * (len + 1));  
+																									 
 	// 동적할당 성공 여부 체크
 	if (addr == NULL)
 	{
-		printf("동적할당 실패");
+		printf("동적할당 실패!!");
 		exit(1);
 	}
 	//문자열 복사
 	strcpy_s(addr, _msize(addr), buff);
 
-	printf("주소 : %s\n", addr);
-	printf("주소가 저장된 공간의 크기 : %d\n", _msize(addr));
+	printf("저장된 주소 : %s\n", addr);
+	printf("저장된 주소 공간의 크기 : %d\n", _msize(addr));
 
 	return 0;
 }
