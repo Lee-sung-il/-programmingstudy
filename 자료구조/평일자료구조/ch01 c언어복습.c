@@ -587,67 +587,294 @@ printf("*ptr = %d\n",*ptr); //ptr이 가리키는 곳의 값을 10진정수 서식에 맞게 출력
 --------------------------------------
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include <string.h>
+//
+//int main() {
+//
+//	char buff[1024] = { 0 }; //입력된 문자열 임시보관 배열
+//	int len = 0;			//\n을 제거하기 위한 용도 idx 저장
+//	char* name;				// 이름이 저장될 동적공간 바인딘용 포인터 변수
+//	char* addr;				// 주소가 저장될 동적공간 바인딩용 포인터변수
+//
+//	printf("이름 : ");
+//	fgets(buff, sizeof(buff), stdin); //키보드로부터 입력된 문자열을  buff크기만큼 buff배열에 저장
+//	len = strlen(buff) - 1;				//buff안의 \n 의 위치 idx 를 len 저장
+//	buff[len] = '\0';					//len idx(\n의 위치)에 \0를 저장
+//
+//
+//	//입력된 이름크기만큼 동적할당
+//	name = (char*)malloc(sizeof(char) * (len + 1)); // len + 1의 1은 \0가 저장될 공간을 추가하는 작업
+//													//char를 배열요소 크기로 해서 len + 1 길이의 배열을 동적할다
+//												   //시작 주소를 name포인터변수에 저장
+//
+//
+//	// 동적할당 성공 여부 체크
+//	if (name == NULL)
+//	{
+//		printf("동적할당 실패");
+//		exit(1);
+//	}
+//
+//	//문자열 복사
+//	strcpy_s(name, _msize(name), buff);
+//
+//	printf("이름 : %s\n", name);
+//	printf("이름이 저장된 공간의 크기 : %d\n",_msize(name));
+//
+//
+//	// 주소 입력받기
+//	printf("주소 : ");
+//	fgets(buff, sizeof(buff), stdin);  
+//	//개행제거 작업
+//	len = strlen(buff) - 1;				//\n의 idx가 len에 저장
+//	buff[len] = '\0';					//\n -> \0 교체
+//
+//	//저장된 문자열의 크기만큼 동적할당
+//	addr = (char*)malloc(sizeof(char) * (len + 1));  
+//																									 
+//	// 동적할당 성공 여부 체크
+//	if (addr == NULL)
+//	{
+//		printf("동적할당 실패!!");
+//		exit(1);
+//	}
+//	//문자열 복사
+//	strcpy_s(addr, _msize(addr), buff);
+//
+//	printf("저장된 주소 : %s\n", addr);
+//	printf("저장된 주소 공간의 크기 : %d\n", _msize(addr));
+//
+//	return 0;
+//}
 
-int main() {
 
-	char buff[1024] = { 0 }; //입력된 문자열 임시보관 배열
-	int len = 0;			//\n을 제거하기 위한 용도 idx 저장
-	char* name;				// 이름이 저장될 동적공간 바인딘용 포인터 변수
-	char* addr;				// 주소가 저장될 동적공간 바인딩용 포인터변수
+/*
+-------------------------------------
+구조체 기본 예제
+--------------------------------------
+*/
 
-	printf("이름 : ");
-	fgets(buff, sizeof(buff), stdin); //키보드로부터 입력된 문자열을  buff크기만큼 buff배열에 저장
-	len = strlen(buff) - 1;				//buff안의 \n 의 위치 idx 를 len 저장
-	buff[len] = '\0';					//len idx(\n의 위치)에 \0를 저장
+//#include <stdio.h>
+//
+//typedef struct person{
+//	char name[30];
+//	int age;
+//	float weight;
+//	double height;
+//} Person;
+//
+//int main() {
+//	//구조체 기본
+//	struct person Lee = { "이지성",35,67.5,177.5 };
+//	printf("%s %d %f %lf\n", Lee.name, Lee.age, Lee.weight, Lee.height);
+//
+//	//typedef 사용
+//	Person kim = { "김상증",40,77.7,177.5 };
+//	printf("%s %d %f %lf\n", kim.name, kim.age, kim.weight, kim.height);
+//
+//	//구조체 배열
+//	Person empolyee[3] = {
+//		{"홍길동",50,56.6,188.8},
+//		{"남길동",60,60.6,188.8},
+//		{"서길동",70,65.6,188.8}
+//	};
+//
+//	for (int i = 0; i < 3; i++)
+//	{
+//		printf("%s %d %f %lf\n", empolyee[i].name, empolyee[i].age, empolyee[i].weight, empolyee[i].height);
+//	}
+//
+//	//구조체 포인터
+//	Person* ptr = &kim;  //포인터로 구조체 변수에 접근
+//
+//	printf("%s\n", ptr->name); // kim의 name멤버에 접근
+//	printf("%d\n", ptr->age); // kim의 age멤버에 접근
+//	printf("%f\n", ptr->weight); // kim의 weight멤버에 접근
+//	printf("%lf\n", ptr->height); // kim의 height멤버에 접근
+//
+//	return 0;
+//}
+
+/*
+-------------------------------------
+2 구조체 사용ㅅ 주의 할점
+--------------------------------------
+*/
+
+//#include <stdio.h>
+//#include <string.h>
+//typedef struct person {
+//	char name[30];
+//	int age;
+//}Person;
+//
+//int main() {
+//	Person Lee = { "이지성",29 }; //구조체변수 생성과 동시에 초기화
+//	Person Kim;		//구조체변수를 정의 (공간형성)........초기값은 미지정
+//	Kim.age = 50;
+//	//Kim.name = "김길증"; //[문제] 이부분에서 컴파일 에러가 드는 이유 ??? -> 적절한 코드로 해결합니다.
+//							//상수안의 값은 다른값으로 변경 불가
+//							//strcpy_s()로 문자열 복사를 통해서 값 저장한다.
+//	strcpy_s(Kim.name,sizeof(Kim.name),"김길증");
+//
+//	printf("%s\t%d\n", Kim.name, Kim.age);
+//}
+/*
+-------------------------------------
+3) 자기 참조 구조체
+--------------------------------------
+*/
+
+//#include <stdio.h>
+//
+//typedef struct person {
+//	char name[30];  //이름저장용 배열
+//	struct person* next; //자기 참조 포인터
+//}Person;
+//
+//int main() {
+//
+//	//구조체간 연결
+//	Person Jung = { "정우균",NULL };
+//	Person Lee = { "이지성",&Jung };
+//	Person Kim = { "김상중",&Lee };
+//
+//	Person* L = &Kim;
+//
+//	//L포인터로 각 구조체안의 멤버중 이름에 접근
+//	printf("%s\n", L->name);			//김상중
+//	printf("%s\n", L->next->name);		// 이지성
+//	printf("%s\n", L->next->next->name);//정우균
+//
+//	//반복문을 통해 연결된 구조체에 접근(★★★)
+//	Person* cur = L;
+//	while (cur != NULL)
+//	{
+//		printf("%s\n", cur->name); //cur포인터가 가리키는 곳의 name 출력
+//		cur = cur->next; // 다음 구조체 노드로 이동 코드
+//
+//	}
+//
+//
+//
+//	return 0;
+//}
 
 
-	//입력된 이름크기만큼 동적할당
-	name = (char*)malloc(sizeof(char) * (len + 1)); // len + 1의 1은 \0가 저장될 공간을 추가하는 작업
-													//char를 배열요소 크기로 해서 len + 1 길이의 배열을 동적할다
-												   //시작 주소를 name포인터변수에 저장
+//--------------------------------------
+// 동적할당 + 포인터 + 구조체
+//--------------------------------------
+
+//#include <stdio.h>
+//#include <stdlib.h>
+//
+//typedef struct person {
+//	char name[20]; // 구조체 멤버 공간에 name저장
+//	char* addr;		//상수pool에 저장된 문자열의 주소를 담는 포인터
+//	struct person* next;
+//}Person;
+//
+//
+//int main() {
+//
+//	Person* node = (Person*)malloc(sizeof(Person));
+//	if (node == NULL)
+//	{
+//		printf("동적실패!");
+//		exit(1);
+//	}
+//
+//	//node->name = "정우균";
+//								//node -> name은 배열이름, 배열이름은 포인터 상수이므로 다른 주소를 
+//								// 담을수 없다!!
+//
+//	strcpy_s(node->name, sizeof(node->name), "정우균");
+//	node->addr = "대구광역시 달서구 갈밭남로~"; //o addr은 node구조체의 멤버포인터'변수!!'이다.
+//												//값의 변경가능하므로 문자열상수의 주소를 담을 수 있다.
+//
+//
+//	node->next = NULL;
+//
+//	node->next = (Person*)malloc(sizeof(Person));
+//
+//	strcpy(node->next->name, sizeof(node->next->name), "김상중");
+//	node->next->addr = "서울특별시	~~";
+//	node->next->next = NULL;
+//
+//	return 0;
+//}
 
 
-	// 동적할당 성공 여부 체크
-	if (name == NULL)
-	{
-		printf("동적할당 실패");
-		exit(1);
-	}
+/*
+---------------------------------------------------------------
+도서 정보 구조체를 참조하여 각 데이터를 담는 구조체를 동적할당하여 생성한뒤
+각 동적할당된 구조체 변수를 먼저 생성된 순으로 연결해봅니다.
+그리고 연결된 구조체 변수를 반복문을 통해서 차례대로 출력해봅니다.
+*/
 
-	//문자열 복사
-	strcpy_s(name, _msize(name), buff);
+//#include <stdio.h>
+//#include <string.h>
+//#include <stdlib.h>
+//
+//typedef struct bookinfo{
+//	int bookCode;
+//	char bookName[30];
+//	struct bookinfo* next;
+//}BookInfo;
+//
+//int main() {
+//		BookInfo* L;//제일 첫노드(bookInfo구조체변수)의 주소를 담는 포인터 변수
+//	
+//		//첫노드에 동적할당 당한 구조체 변수의 시작 주소를 저장
+//		 L = (BookInfo*)malloc(sizeof(BookInfo));
+//		if (L == NULL)
+//		{
+//			printf("동적실패!");
+//			exit(1);
+//		}
+//		//첫노드에 각각 bookCode = 1010, bookName배열에 '윤성우의 열혈C" 를저장
+//		L->bookCode = 1010;
+//		//L->bookName = "윤성우의열형C";
+//		strcpy_s(L->bookName, sizeof(L->bookName), "윤성우의열혈C");
+//		//첫노드의 next포인터에 null값 초기화
+//		L->next = NULL;
+//		//두번째 노드 동적할당 하면서 그주소를 첫노드의 next에 저장
+//		L->next = (BookInfo*)malloc(sizeof(BookInfo));
+//		if (L->next == NULL)
+//		{
+//			printf("동적할당 실패!");
+//			exit(1);
+//		}
+//		//두번째 노드의 bookCode = 2020, bookName배열에 "이것이리눅스다"를 저장
+//		L->next->bookCode = 2020;
+//		strcpy_s(L->next->bookName, sizeof(L->next->bookName), "이것이리눅스다");
+//		//두번째 노드의 next포인터에는 NULL값 저장
+//		L->next->next = NULL;
+//
+//		printf("%d\t%s\n", L->bookCode, L->bookName);
+//		printf("%d\t%s\n", L->next->bookCode, L->next->bookName);
+//
+//
+//
+//		return 0;
+//
+//	
+//}
 
-	printf("이름 : %s\n", name);
-	printf("이름이 저장된 공간의 크기 : %d\n",_msize(name));
 
 
-	// 주소 입력받기
-	printf("주소 : ");
-	fgets(buff, sizeof(buff), stdin);  
-	//개행제거 작업
-	len = strlen(buff) - 1;				//\n의 idx가 len에 저장
-	buff[len] = '\0';					//\n -> \0 교체
 
-	//저장된 문자열의 크기만큼 동적할당
-	addr = (char*)malloc(sizeof(char) * (len + 1));  
-																									 
-	// 동적할당 성공 여부 체크
-	if (addr == NULL)
-	{
-		printf("동적할당 실패!!");
-		exit(1);
-	}
-	//문자열 복사
-	strcpy_s(addr, _msize(addr), buff);
 
-	printf("저장된 주소 : %s\n", addr);
-	printf("저장된 주소 공간의 크기 : %d\n", _msize(addr));
 
-	return 0;
-}
+
+
+
+
+
+
+
 
 
 
