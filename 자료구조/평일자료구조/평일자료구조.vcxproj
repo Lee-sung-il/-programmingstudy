@@ -124,6 +124,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ch01 c언어복습.c" />
+    <ClCompile Include="ch02순차탐색_이진탐색.c" />
+    <ClCompile Include="ch03재귀함수.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
