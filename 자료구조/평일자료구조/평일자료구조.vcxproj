@@ -127,6 +127,8 @@
     <ClCompile Include="ch02순차탐색_이진탐색.c" />
     <ClCompile Include="ch03재귀함수.c" />
     <ClCompile Include="ch04배열리스트.c" />
+    <ClCompile Include="ch05 단순연결리스트.c" />
+    <ClCompile Include="tmp.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
