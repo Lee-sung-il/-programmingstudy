@@ -78,17 +78,50 @@ void insertLastNode(char* x) {
 	strcpy_s(new->data, sizeof(new->data), x);
 	//3 링크 Null 삽입
 	new->link = NULL;
+	
+	if (L != NULL) {//4-1 노드가 하나이상 있는경우 -> 처음위치에 연결
+		
+					//5 tmp 포인터를 만들어서 각 노드를 순회(tmp=tmp->link)하면서 마지막위치(link가 NULL) 인지 확인
+		listNode* tmp = L;
+		while (tmp->link != NULL)
+		{
+			tmp = tmp->link;
+		}
+		//반복문을 벗어났다는 의미는  tmp는 마지막노드를 가리키고 있는 상태
+		tmp->link = new;//6 마지막위치에서 새노드를 연결	
+			
+			
+	}
+	else {//4-2 노드가 하나도 없는경우 -> 전역L포인터에 노드 바로연결 
+		L = new;
+	}
 
-	//4-1 노드가 하나도 없는경우 -> 전역L포인터에 노드 바로연결 
-	//4-2 노드가 하나이상 있는경우 -> 마지막 위치에 연결 코드 작성 
-
-	//5 tmp 포인터를 만들어서 각 노드를 순회(tmp=tmp->link)하면서 마지막위치(link가 NULL) 인지 확인
-	//6 마지막위치에서 새노드를 연결	
 
 }
 
 // 리스트에서 x 노드를 탐색하는 연산
 listNode* searchNode(char* x) {
+	//1 탐색용 구조체 포인터(tmp) 생성
+	//2 노드의 시작주소를 tmp포인터에 저장
+	listNode* tmp = L;
+	//1) 노드가 하나도 없는 경우 
+	if (L == NULL)
+	{
+		return NULL;
+	}
+	//노드가 있을때 
+	while (tmp != NULL)//3 각노드를 순회(tmp=tmp->link)하면서 찾을 문자열과 일치하는 문자열 확인(strcmp(주소1,주소2))
+	{
+		if (strcmp(tmp->data,x)==0) // 데이터가 일치
+		{
+			break;
+		}
+		tmp = tmp->link;
+	}
+	
+	return tmp;//1) 동일한 데이터값의 주소가 tmp에 담겨서 break경우
+			   //2) 노드의 마지막까지 이동한 경우 (일치하는 데이터가 없다)
+	
 
 
 }
@@ -125,6 +158,24 @@ int main() {
 	insertLastNode("토");
 	insertLastNode("일");
 	printList();
+
+
+	// ---------------------------------------------
+	// 데이터 탐색
+	// ---------------------------------------------
+	printf("\n----------(4) 리스트에서 [금] 노드 탐색하기!----------\n");
+	p = searchNode("금");
+	if (p == NULL)
+		printf("찾는 데이터가 없습니다.\n");
+	else
+		printf("[%s]를 찾았습니다.\n", p->data);
+
+	printf("\n----------(3) 리스트에서 [목] 노드 탐색하기! ----------\n");
+	p = searchNode("목");
+	if (p == NULL)
+		printf("찾는 데이터가 없습니다.\n");
+	else
+		printf("[%s]를 찾았습니다.\n", p->data);
 
 
 
