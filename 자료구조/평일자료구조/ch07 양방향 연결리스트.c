@@ -49,56 +49,53 @@ void LInsertFirst(List* plist, int data)
 	// 2 데이터 값
 	// 3 링크 NULL
 	Node* new = (Node*)malloc(sizeof(Node));
-		if (new == NULL)
-			exit(1);
-		
-		new->data = data;
-		
-		new->prev = NULL;
-		new->next = NULL;
-
-	// 4 노드 하나도 없을때
-	// 5 노드 하나이상 있을 때	
-		if (plist->numOfData == 0)
-		{
-			plist->head = new;
-			plist->tail = new;
-		}
-		else {
-			new->next = plist->head;
-			plist->head->prev = new;
-			plist->head = new;
-		}
-		plist->numOfData++;
-
-}
-
-
-//마지막에 삽입 함수
-
-void LInsertLast(List* plist, int data)
-{
-
-	// 1 새노드 생성
-	Node* new = (Node*)malloc(sizeof(Node));
 	if (new == NULL)
 		exit(1);
-	// 2 데이터 값
 	new->data = data;
-	// 3 링크 NULL
-	new->prev = NULL;
-	new->next = NULL;
+	new->prev = NULL; new->next = NULL;
 
 	// 4 노드 하나도 없을때
-	// 5 노드 하나이상 있을 때	
+	// 5 노드 하나이상 있을 때
 	if (plist->numOfData == 0)
 	{
 		plist->head = new;
 		plist->tail = new;
 	}
-	else {
-		plist->tail->next = new; //마지막노드next에 new노드 연결
-		new->prev = plist->tail; //new노드 prev에 전노드 연결
+	else
+	{
+		new->next = plist->head;
+		plist->head->prev = new;
+		plist->head = new;
+	}
+	plist->numOfData++;
+
+
+}
+//마지막에 삽입 함수
+void LInsertLast(List* plist, int data)
+{
+
+	// 1 새노드 생성
+	// 2 데이터 값
+	// 3 링크 NULL
+	Node* new = (Node*)malloc(sizeof(Node));
+	if (new == NULL)
+		exit(1);
+	new->data = data;
+	new->prev = NULL; new->next = NULL;
+
+	// 4 노드 하나도 없을때
+	// 5 노드 하나이상 있을 때	
+
+	if (plist->numOfData == 0)
+	{
+		plist->head = new;
+		plist->tail = new;
+	}
+	else
+	{
+		plist->tail->next = new;	//마지막노드next에 new노드 연결
+		new->prev = plist->tail;	//new노드 prev에 전노드 연결
 		plist->tail = new;
 	}
 	plist->numOfData++;
@@ -109,24 +106,25 @@ void LInsertLast(List* plist, int data)
 
 int FindFirst(List* plist, int data)
 {
+
+
 	// 0 plist->head를 이용해서 차례로 순차탐색 
 	// 1 노드 없을때 return NULL
 	// 2 노드 있을때 
 	// 2-1 NumofData 개수만큼 반복하여 일치된 데이터 찾으면 return 노드 주소
 	// 2-1 NumofData 개수만큼 반복하여 일치된 데이터 못찾으면 return NULL
-	
-	//1노드가 없을때
+
+
+	//1 노드가 없을때
 	if (plist->numOfData == 0)
-	{
 		return NULL;
-	}
 
-
-	//2노드가 있을때
-	Node* cur = plist->head; // 처음 위치 노드
+	//2 노드가 있을때
+	Node* cur = plist->head; //처음위치 노드 
 	for (int i = 0; i < plist->numOfData; i++)
 	{
-		if (cur->data == data) {
+		if (cur->data == data)
+		{
 			return cur;
 		}
 		cur = cur->next;
@@ -146,20 +144,17 @@ int FindLast(List* plist, int data)
 	// 2-1 NumofData 개수만큼 반복하여 일치된 데이터 못찾으면 return NULL
 
 	if (plist->numOfData == 0)
-	{
 		return NULL;
-	}
 
 	Node* cur = plist->tail;
 	for (int i = 0; i < plist->numOfData; i++)
 	{
 		if (cur->data == data)
-		{
 			return cur;
-		}
 		cur = cur->prev;
 	}
 	return NULL;
+
 }
 
 
@@ -167,23 +162,16 @@ int FindLast(List* plist, int data)
 
 void LInsertMiddle(List* plist, Node* pre, int data)
 {
-
-
 	// 1 노드생성
 	// 2 데이터부 값
 	// 3 링크부 NULL 초기화 
 
 	// 4 pre 가 마지막 노드인경우
 	// 5 pre 가 마지막 노드가 아닌경우 
-
-
-
 }
 //삭제함수
 void LRemove(List* plist, int data)
 {
-
-
 	//1 조회
 	//1-1 없으면  return 
 	//1-2 조회데이터 있다면 2 로 이동
@@ -194,8 +182,6 @@ void LRemove(List* plist, int data)
 	//3 데이터 노드 1 감소
 
 }
-
-
 
 int main(void)
 {
@@ -214,7 +200,6 @@ int main(void)
 	LInsertFirst(&list, 2);  LInsertFirst(&list, 1);
 	PrintList(&list);
 
-
 	//----------------------------------------------
 	// 2 마지막 위치에 연결 
 	//----------------------------------------------
@@ -222,10 +207,10 @@ int main(void)
 	LInsertLast(&list, 5);  LInsertLast(&list, 6);
 	LInsertLast(&list, 7);  LInsertLast(&list, 8);
 	PrintList(&list);
-	
+
 	//----------------------------------------------
-	// 3-1 노드 데이터 조회(정방향) 
-	//----------------------------------------------
+// 3-1 노드 데이터 조회(정방향) 
+//----------------------------------------------
 	printf("---------------데이터 조회 (정방향)---------------\n");
 	int num;
 	printf("찾을 값 입력(정방향조회) : ");
@@ -239,7 +224,6 @@ int main(void)
 	{
 		printf("데이터가 없습니다\n");
 	}
-	
 	//----------------------------------------------
 	// 3-2 노드 데이터 조회(역방향) 
 	//----------------------------------------------
@@ -255,5 +239,9 @@ int main(void)
 	{
 		printf("데이터가 없습니다\n");
 	}
+
+
+
+
 	return 0;
 }
