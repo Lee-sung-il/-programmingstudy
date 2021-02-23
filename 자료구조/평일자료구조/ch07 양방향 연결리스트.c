@@ -156,8 +156,6 @@ int FindLast(List* plist, int data)
 	return NULL;
 
 }
-
-
 // 중간 노드 삽입 함수 
 
 void LInsertMiddle(List* plist, Node* pre, int data)
@@ -165,14 +163,36 @@ void LInsertMiddle(List* plist, Node* pre, int data)
 	// 1 노드생성
 	// 2 데이터부 값
 	// 3 링크부 NULL 초기화 
+	Node* new = (Node*)malloc(sizeof(Node));
+	if (new == NULL)
+		exit(1);
+	new->data = data;
+	new->next = NULL;
+	new->prev = NULL;
 
 	// 4 pre 가 마지막 노드인경우
 	// 5 pre 가 마지막 노드가 아닌경우 
+	if (pre != plist->tail)
+	{
+		new->prev = pre;
+		new->next = pre->next;
+		pre->next->prev = new;
+		pre->next = new;
+	}
+	else
+	{
+		pre->next = new;
+		new->prev = pre;
+		plist->tail = new;
+
+	}
+	plist->numOfData++;
+
 }
 //삭제함수
 void LRemove(List* plist, int data)
 {
-	//1 조회
+	//1 조회(FindFirst(plist,data))
 	//1-1 없으면  return 
 	//1-2 조회데이터 있다면 2 로 이동
 	//2 삭제 위치 확인
@@ -180,6 +200,38 @@ void LRemove(List* plist, int data)
 	//2-2 중간
 	//2-3 마지막
 	//3 데이터 노드 1 감소
+
+	if (plist->numOfData == 0)
+	{
+		printf("연결노드없음\n");
+		return;
+	}
+	Node* del = FindFirst(plist, data);
+	if (del == NULL)
+	{
+		printf("삭제노드 탐색실패\n");
+		return;
+	}
+
+	//노드가 존재 O , 삭제노드 O
+	if (plist->head == del)	//처음
+	{
+		plist->head = del->next;
+		plist->head->prev = NULL;
+	}
+	else if (plist->tail == del) //마지막
+	{
+		plist->tail = del->prev;
+		plist->tail->next = NULL;
+
+	}
+	else //중간 
+	{
+		del->prev->next = del->next;
+		del->next->prev = del->prev;
+	}
+	plist->numOfData--;
+	free(del);
 
 }
 
@@ -240,7 +292,34 @@ int main(void)
 		printf("데이터가 없습니다\n");
 	}
 
+	//----------------------------------------------
+	//4 중간노드 삽입
+	//----------------------------------------------
+	printf("---------------중간 노드 삽입---------------\n");
+	printf("찾을 노드 값:");
+	scanf_s("%d", &num);
+	search = FindFirst(&list, num);
+	if (search == NULL)
+	{
+		printf("해당 값이 노드에 존재하지 않습니다\n");
+	}
+	else
+	{
+		printf("삽입할 값 입력 :");
+		scanf_s("%d", &num);
+		LInsertMiddle(&list, search, num);
+	}
+	printf("");
+	PrintList(&list);
 
+	//----------------------------------------------
+	// 5 노드 삭제 ////
+	//----------------------------------------------
+	printf("---------------데이터 삭제---------------\n");
+	printf("삭제할 값 입력 : ");
+	scanf_s("%d", &num);
+	LRemove(&list, num);
+	PrintList(&list);
 
 
 	return 0;
