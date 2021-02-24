@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include <stdlib.h> //_countof() 사용위한 함수 
+#include <string.h>
+
+/** 마지막 길이 반환 함수 ***/
+int Endlen(int* arr)
+{
+	int len = 0, i = 0;
+	while (arr[i] != '\0')	
+		i++;
+	return i;
+}
+/**  데이터 출력 함수 ***/
+void Output(int* arr)
+{
+	int len = Endlen(arr);
+	for (int i = 0; i < len; i++)
+		printf("%d ", arr[i]);
+	printf("\n");
+
+}
+
+/**  데이터 삽입 함수 ***/ 
+void Insert(int *arr, int data)
+{
+	
+	// 1 꽉찬상태확인 (배열의 마지막 바로전 idx가(98) NUll인지 확인)
+	//  ->99번째까지 데이터 담을때 Endlen()사용불가)
+	// 2 저장할 위치idx를 탐색(Endlen() 함수를 이용해서 idx를 확인)
+	// 3 해당 idx 요소에 전달된 data값을 저장
+
+}
+
+/**  데이터 조회 함수 ***/ 
+int Search(int* arr, int target)
+{
+
+}
+
+/**  데이터 중복 조회 함수 ***/
+void DSearch(int* arr, int target)
+{
+
+
+}
+/**  데이터 삭제 함수 ***/
+void Remove(int* arr, int target)
+{
+
+}
+
+void DRemove(int* arr, int target)
+{
+
+}
+
+void main() {
+	//----------------------------------------------
+	//데이터  삽입 파트 
+	//----------------------------------------------
+	/*** 데이터 저장 배열 정의***/
+	int Array[100] = { 0 };
+	int n1 = 0;
+	int rm = 0;
+
+	/*** 5개의 데이터 저장 ***/
+	Insert(Array, 11); 	Insert(Array, 11);
+	Insert(Array, 22); 	Insert(Array, 22);
+	Insert(Array, 33);  Insert(Array, 22);
+
+	/*** 저장된 데이터  출력 ***/
+	Output(Array);
+
+
+}
